@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="post">
+
+	<!-- 게시물 전체 리스트 가져오기 -->
+	<select id="getBoardList" resultType="postVo">   <!--  mybatis는 별칭 설정은 mybatis-config에서 설정한다. -->
+		select * from post
+	</select>
+	
+	<!-- 게시물 작성자 조회  -->
+	<select id="getPostingUser" parameterType="String" resultType="String">
+		select userId
+		from post
+		where postNo = #{postNo}
+	</select>
+	
+	<!-- 게시물 상세보기  -->
+	<select id="getPost" parameterType="Integer" resultType="postVo">
+		select * from post
+		where postno = #{postno}
+	</select>	
+	
+	<!-- 페이징  -->
+	<select id="getPostPagingList" resultType="postVo" parameterType="page">
+		 select a.*
+     	 from 
+	     (select rownum rn, a.*
+      	 from
+         (select postNo, parentPostNo, lpad(' ', (level-1)*4, ' ') || postTitle postTitle, userId, postWDate, level, deleteYN, boardNo 
+         from post a
+         where boardNo = #{boardNo}  
+         start with parentPostNo is null
+         connect by prior postNo = parentPostNo
+         order SIBLINGS by gn desc, postNo desc) a) a
+         where rn between (#{page}-1)*#{pagesize}+1 and #{page}*#{pagesize}
+	</select>
+	
+	<!-- 게시물 전체 건수 조회(boardNo에 따른)  -->	
+	<select id = "getPostTotalCnt" parameterType="int" resultType = "Integer">
+		select count(*)
+		from post
+		where boardno = #{boardno}
+	</select>
+	
+	<!-- 게시물 전체 건수 조회  -->	
+	<select id = "getPostTotalCnt1" resultType = "Integer">
+		select count(*)
+		from post
+	</select>
+	
+	<!-- 게시물 등록  -->
+	<insert id="insertPost" parameterType="postVo">
+		<selectKey resultType="Integer" keyProperty="postNo" order="BEFORE">
+			 SELECT MAX(postNo)+1 FROM post
+		</selectKey>
+		
+		insert into post (postNo, boardNo, postTitle, postContent, userId, postWDate, deleteYN, parentPostNo)
+		values (#{postNo}, #{boardNo}, #{postTitle}, #{postContent}, #{userId}, sysdate, 1, #{parentPostNo,jdbcType=INTEGER})
+	</insert>
+	
+	<!-- 파일 추가  -->
+	<insert id="insertFile" parameterType="fileVo">
+		insert into postFile
+		values (FILENO_SEQ.nextval, #{fileName}, #{realFileName}, #{postNo})
+	</insert>
+	
+	<!-- 파일 삭제  -->
+	<delete id="deleteFile" parameterType="int">
+		delete from postfile
+		where fileNo = #{fileNo}
+	</delete> 
+	
+	<!-- 게시물 삭제  -->
+	<update id="deletePost" parameterType="int">
+		update	post
+		set		deleteYN = 2
+		where	postNo = #{postNo}
+	</update>
+	
+	<!-- 게시물 수정 -->
+	<update id="updatePost" parameterType="postVo">
+		update post
+		set postTitle = #{postTitle},
+			postContent = #{postContent},
+			postWDate = sysdate
+		where postNo = #{postNo}
+	</update>
+	
+</mapper>

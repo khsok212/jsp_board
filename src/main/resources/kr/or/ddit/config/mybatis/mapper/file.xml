@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="file">
+ 	<select id="getPostFile" parameterType="int" resultType="fileVo">
+ 		select * from postfile
+ 		where postno = #{postno}
+ 	</select>
+ 	
+ 	<select id="getFile" parameterType="int" resultType="fileVo">
+ 		select * from postfile
+ 		where fileNo = #{fileNo}
+ 	</select>
+ 	
+ 	<delete id="deleteFile" parameterType="int">
+ 		delete from postfile
+ 		where fileNo = #{fileNo}
+ 	</delete>
+ </mapper>

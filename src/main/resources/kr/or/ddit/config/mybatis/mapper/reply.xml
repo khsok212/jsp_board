@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="reply">
+ 	<select id="getReply" parameterType="int" resultType="replyVo">
+ 		select * from p_reply
+ 		where replyno = #{replyno}
+ 	</select>
+ 	
+ 	<select id="getReplyList" parameterType="int" resultType="replyVo">
+ 		select * from p_reply
+ 		where postno = #{postno}
+ 		order by 5
+ 	</select>
+ 	
+ 	<insert id="insertReply" parameterType="replyVo">
+ 		insert into p_reply (replyNo, postNo, replyContent, userId, replyWDate, deleteYN)
+ 		values (reply_seq.nextval, #{postNo}, #{replyContent}, #{userId}, sysdate, 1)
+ 	</insert>
+ 	
+ 	<!-- 댓글 삭제 -->
+ 	<update id="deleteReply" parameterType="int">
+ 		update p_reply
+ 		set deleteYN = 2
+ 		where replyNo = #{replyNo}  
+ 	</update>
+ </mapper>
