@@ -22,7 +22,10 @@
 	#deleteIcon{
 		cursor: pointer;
 	}
-
+	*{
+		font-family: NanumSquare ExtraBold;
+		font-size: 1.02em;
+	}
 </style>
 <%@include file="/commonJsp/basicLib.jsp" %>
 <script src="/SE2/js/HuskyEZCreator.js"></script>

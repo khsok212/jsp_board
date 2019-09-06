@@ -18,6 +18,12 @@
 <link rel="icon" href="../../favicon.ico">
 
 <title>Jsp-basicLib</title>
+<style>
+	*{
+		font-family: NanumSquare ExtraBold;
+		font-size: 1.02em;
+	}
+</style>
 <%@include file="/commonJsp/basicLib.jsp" %>
 <script src="/SE2/js/HuskyEZCreator.js"></script>
 <script type="text/javascript">
@@ -97,7 +103,7 @@ function validation(){
                   <label for="postTitle" class="col-sm-2 control-label">제목</label>
                   <div class="col-sm-10">
                      <input type="text" class="form-control" id="postTitle" name="postTitle"
-								placeholder="제목" value="${param.postTitle }">
+								placeholder="제목" value="[${post.parentPostNo}게시물의 답글]${param.postTitle }">
                   </div>
                </div>
       

@@ -21,7 +21,10 @@
 	#deleteIcon{
 		cursor: pointer;
 	}
-	
+	*{
+		font-family: NanumSquare ExtraBold;
+		font-size: 1.02em;
+	}
 </style>
 <%@include file="/commonJsp/basicLib.jsp" %>
 </head>
@@ -73,7 +76,7 @@ $(document).ready(function(){
 <%--        <input type="hidden" id="postContent" name="postContent" value = "${post.postContent}"/> --%>
 <%--        <input type="hidden" id="postTitle" name="postTitle" value = "${post.postTitle}"/> --%>
     </form>
-?parentPostNo=${postNo }
+    
 	<!-- 값을 가져오는 방법??? -->
 	<form id="frm3" action="${cp}/replyDelete" method="get">
        <input type="hidden" id="postNo" name="postNo" value = "${post.postNo }"/>
@@ -180,7 +183,7 @@ $(document).ready(function(){
 						<label for="replyContent" class="col-sm-2 control-label">댓글입력</label>
 						<div class="col-sm-10">
 							<textarea class="form-control" rows="4" name="replyContent1" id="replyContent1" placeholder="댓글을 입력하세요." style="resize: none;"></textarea>
-							<button type="button" id="replyBtn" class="btn btn-info">댓글 등록</button>
+							<br><button type="button" id="replyBtn" class="btn btn-info">댓글 등록</button>
 						</div>
 					</div>
 

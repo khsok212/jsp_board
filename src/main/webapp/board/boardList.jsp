@@ -15,9 +15,14 @@
 <%@ include file="/commonJsp/basicLib.jsp"%>
 
 <style>
-#useYN {
-	height: 1.9em;
-}
+	#useYN {
+		height: 1.9em;
+	}
+	
+	*{
+		font-family: NanumSquare ExtraBold;
+		font-size: 1.02em;
+	}
 </style>
 <script>
 	

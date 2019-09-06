@@ -18,6 +18,12 @@
 <link rel="icon" href="../../favicon.ico">
 
 <title>Jsp-basicLib</title>
+<style>
+	*{
+		font-family: NanumSquare ExtraBold;
+		font-size: 1.02em;
+	}
+</style>
 <%@include file="/commonJsp/basicLib.jsp" %>
 <script src="/SE2/js/HuskyEZCreator.js"></script>
 <script type="text/javascript">

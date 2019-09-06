@@ -17,7 +17,10 @@
 
 <title>게시판목록/등록</title>
 <style>
-
+	*{
+		font-family: NanumSquare ExtraBold;
+		font-size: 1.02em;
+	}
 	.postTr{
 		cursor: pointer;
 	}
@@ -77,13 +80,17 @@
 						<h2 class="sub-header">${board.boardName }</h2>
 						<div class="table-responsive">
 							<table class="table table-striped table-condensed">
+							
 								<tr>
 									<th>게시글 번호</th>
 									<th>제목</th>
 									<th>작성자 아이디</th>
 									<th>작성일시</th>
 								</tr>
-
+								
+								<c:if test="${postList.size() == 0 }">
+									<td colspan="4" style = "text-align: center;"> 게시물이 없습니다 </td>
+								</c:if>
 								<%-- for(User user : userList) --%>
 								
 								<c:forEach items="${postList}" var="post">
@@ -91,11 +98,17 @@
 										<c:when test="${post.deleteYN == 1 }">
 											<tr class="postTr" data-postNo="${post.postNo }">
 												<td>${post.postNo }</td>
-												<td><c:forEach begin="1" end="${post.level }">
+										
+										<td>
+												
+										<c:forEach begin="1" end="${post.level }">
 										&nbsp;&nbsp;&nbsp;&nbsp;	
-										</c:forEach> <c:if test="${post.level > 1 }">
+										</c:forEach> 
+										
+										<c:if test="${post.level > 1 }">
 										└ 
 										</c:if> 
+										
 										${post.postTitle }</td>
 										<td>${post.userId }</td>
 										<td>${post.postWDate_fmt }</td>
